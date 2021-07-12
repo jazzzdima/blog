@@ -1,0 +1,10 @@
+{{#each posts}}
+    <div class="post" id={{_id}}>
+        <div class="post_title">title: {{title}}</div>
+        <div class="post_author">author: {{author}}</div>
+        <div class="post_published">published: {{published}}</div>
+        <div class="post_content">content: {{content}}</div>
+        <div class="post_replies_count">replies: {{replies.count}}</div>
+        <div class="post_update">updated: {{updated}}</div>
+    </div>
+{{/each}}

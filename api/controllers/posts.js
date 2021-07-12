@@ -18,6 +18,36 @@ async function getAllPosts(req, res) {
     }
 }
 
+async function getActivePosts(req, res) {
+    try {
+        let posts = await Post.find({ active: true })
+        if (posts.length < 1) {
+            sendJsonResponse(res, 404, 'Not active posts found')
+            return
+        } else {
+            sendJsonResponse(res, 200, posts)
+        }
+    } catch (err) {
+        sendJsonResponse(res, 404, {"message" : err.message})
+        return
+    }
+}
+
+async function getNoActivePosts(req, res) {
+    try {
+        let posts = await Post.find({ active: false })
+        if (posts.length < 1) {
+            sendJsonResponse(res, 404, 'Not no active posts found')
+            return
+        } else {
+            sendJsonResponse(res, 200, posts)
+        }
+    } catch (err) {
+        sendJsonResponse(res, 404, {"message" : err.message})
+        return
+    }
+}
+
 async function getAllPostsByAuthor(req, res) {
     if (!req.params.authorId) {
         sendJsonResponse(res, 404, {'message' : 'Not enaught parameter Id'})
@@ -140,6 +170,8 @@ async function deleteAllPostsByAuthor(req, res) {
 }
 
 module.exports.getAllPosts = getAllPosts
+module.exports.getActivePosts = getActivePosts
+module.exports.getNoActivePosts = getNoActivePosts
 module.exports.getAllPostsByAuthor = getAllPostsByAuthor
 module.exports.getPostById = getPostById
 module.exports.savePost = savePost
