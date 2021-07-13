@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Post = require('../models/posts')
 const Author = require('../models/authors')
+const Comment = require('../models/comments')
 const { sendJsonResponse } = require('../lib/helpers')
 
 async function getAllPosts(req, res) {
@@ -20,7 +21,7 @@ async function getAllPosts(req, res) {
 
 async function getActivePosts(req, res) {
     try {
-        let posts = await Post.find({ active: true })
+        let posts = await Post.find({ active: true }).populate('author')
         if (posts.length < 1) {
             sendJsonResponse(res, 404, 'Not active posts found')
             return
@@ -75,6 +76,12 @@ async function getPostById(req, res) {
 
     try {
         let post = await Post.findById(req.params.postId)
+            .populate('author')
+        let comments = await Comment.find({ post: req.params.postId })
+
+        if (comments.length > 0)
+            post.comments = comments
+
         if (post === null) {
             sendJsonResponse(res, 404, {'message': 'Not post found'})
             return

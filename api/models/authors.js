@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const authorSchema = new Schema({    
+const authorSchema = new Schema({
     name: {
         first: {
             type: String,
@@ -29,6 +29,10 @@ const authorSchema = new Schema({
         required: true,
         min: 6,
         max: 256
+    },
+    posts: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
     }
 })
 

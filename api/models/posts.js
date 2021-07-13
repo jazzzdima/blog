@@ -27,10 +27,18 @@ const postSchema = new Schema({
             type: String
         }
     },
+    active: {
+        type: Boolean,
+        "default": false
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'Author'
-    }
+    },
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    }]
 })
 
 let Post = mongoose.model('Post', postSchema)

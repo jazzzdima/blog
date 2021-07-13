@@ -1,0 +1,25 @@
+<a href="/">Index</a>
+<div class="post" id={{_id}}>
+    <div class="post_title">title: {{title}}</div>
+    <div class="post_author">author: {{author.name.first}} {{author.name.last}}</div>
+    <div class="post_published">published: {{published}}</div>
+    <div class="post_content">content: {{content}}</div>
+    <div class="post_replies_count">replies: {{replies.count}}</div>
+    <div class="post_update">updated: {{updated}}</div>
+    
+    <div class="comments">
+        {{#each comments}}
+            <div class="comment" id={{_id}}>
+                <div class="comment_author">Comment author: {{author}}</div>
+                <div class="comment_content">Comment content: {{content}}</div>
+            </div>
+        {{/each}}
+    </div>
+    <div class="add_comment">
+        <form action="/post/{{_id}}/comment" method="POST">
+            Author: <input type="text" name="author">
+            Content: <textarea name="content"></textarea>
+            <input type="submit" value="Add comment">
+        </form>    
+    </div>
+</div>
